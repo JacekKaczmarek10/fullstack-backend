@@ -1,6 +1,6 @@
 package com.kaczmarek.fullstackbackend.controller;
 
-import com.kaczmarek.fullstack.generated.api.ApiApi;
+import com.kaczmarek.fullstack.generated.api.V1Api;
 import com.kaczmarek.fullstack.generated.model.MessageDto;
 import com.kaczmarek.fullstack.generated.model.NewMessageDto;
 import com.kaczmarek.fullstackbackend.service.MessageService;
@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-public class MessageController implements ApiApi {
+public class MessageController implements V1Api {
 
     private final MessageService service;
 
