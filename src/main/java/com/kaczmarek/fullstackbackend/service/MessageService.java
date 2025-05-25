@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class MessageService {
 
     private final MessageMapper mapper;
@@ -58,4 +58,5 @@ public class MessageService {
     private List<MessageDto> convertToDtoList(List<Message> messages) {
         return mapper.toDtoList(messages);
     }
+
 }
