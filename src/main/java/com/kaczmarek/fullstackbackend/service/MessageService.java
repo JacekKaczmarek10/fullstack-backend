@@ -2,6 +2,7 @@ package com.kaczmarek.fullstackbackend.service;
 
 import com.kaczmarek.fullstack.generated.model.MessageDto;
 import com.kaczmarek.fullstack.generated.model.NewMessageDto;
+import com.kaczmarek.fullstackbackend.aop.Timed;
 import com.kaczmarek.fullstackbackend.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class MessageService {
     private final MessageRepository repository;
 
     @Transactional
+    @Timed
     @CacheEvict(value = "messages", allEntries = true)
     public MessageDto save(NewMessageDto newMessageDto) {
         var sanitizedContent = escapeHtml4(newMessageDto.getContent());

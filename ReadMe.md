@@ -18,7 +18,7 @@ To build and run the application, you need:
 ## ▶️ Running the Application Locally
 
 ```bash
-mvn spring-boot:run
+mvn spring-boot:run -Dspring-boot.run.profiles=dev 
 ```
 
 Once started, access:
