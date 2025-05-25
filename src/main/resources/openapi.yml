@@ -89,10 +89,13 @@ components:
           format: int64
           description: Unique identifier of the message
           example: 1
+          minimum: 1
         content:
           type: string
           description: The text content of the message
           example: "Hello world!"
+          minLength: 1
+          maxLength: 1000
       required:
         - id
         - content
@@ -104,6 +107,8 @@ components:
           type: string
           description: The text content of the message
           example: "New message content"
+          minLength: 1
+          maxLength: 1000
       required:
         - content
 

@@ -1,8 +1,17 @@
-FROM maven:3.9.6-amazoncorretto-21 AS build
-WORKDIR /build
-COPY . .
-RUN mvn clean install -Dmaven.test.skip=true
+FROM eclipse-temurin:21-jdk AS builder
+WORKDIR /app
 
-FROM openjdk:21
-COPY --from=build /build/target/fullstack-backend-0.0.1-SNAPSHOT.jar /usr/local/lib/message-app-1.0.0.jar
-CMD ["java", "-jar", "/usr/local/lib/message-app-1.0.0.jar"]
+COPY pom.xml .
+COPY src ./src
+COPY mvnw .
+COPY .mvn .mvn
+
+RUN chmod +x mvnw
+RUN ./mvnw clean package -DskipTests
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
