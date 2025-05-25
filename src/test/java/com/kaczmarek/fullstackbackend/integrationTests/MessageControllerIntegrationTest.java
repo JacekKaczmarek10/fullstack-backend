@@ -43,7 +43,7 @@ class MessageControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        baseUrl = "http://localhost:" + port + "/api";
+        baseUrl = "http://localhost:" + port + "/api/v1";
     }
 
     @Nested

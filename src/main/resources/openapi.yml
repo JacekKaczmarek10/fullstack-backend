@@ -1,42 +1,83 @@
 openapi: 3.0.1
 info:
-  title: MessageApi
+  title: Message API
+  description: API for managing messages
   version: 1.0.0
+  contact:
+    email: api@example.com
+  license:
+    name: MIT
+
+servers:
+  - url: /v1
+    description: Version 1 API
 
 paths:
-  /api/messages:
+  /v1/api/messages:
     get:
       summary: Get all messages
+      description: Returns a list of all messages in the system
       operationId: getMessages
       tags:
-        - message
+        - Messages
       responses:
         '200':
-          description: List of messages
+          description: Successful operation. Returns an array of messages.
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/MessageDto'
+              example:
+                - id: 1
+                  content: "First example message"
+                - id: 2
+                  content: "Second example message"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     post:
-      summary: Add a message
+      summary: Create a new message
+      description: Adds a new message to the system
       operationId: addMessage
       tags:
-        - message
+        - Messages
       requestBody:
         required: true
+        description: Message object to be created
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/NewMessageDto'
+            example:
+              content: "This is a new message"
       responses:
         '201':
-          description: Message created
+          description: Message successfully created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MessageDto'
+              example:
+                id: 3
+                content: "This is a new message"
+        '400':
+          description: Bad request (e.g., missing required fields)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -46,12 +87,39 @@ components:
         id:
           type: integer
           format: int64
+          description: Unique identifier of the message
+          example: 1
         content:
           type: string
+          description: The text content of the message
+          example: "Hello world!"
+      required:
+        - id
+        - content
+
     NewMessageDto:
       type: object
       properties:
         content:
           type: string
+          description: The text content of the message
+          example: "New message content"
       required:
         - content
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Error description
+          example: "Validation failed"
+        timestamp:
+          type: string
+          format: date-time
+          description: When the error occurred
+          example: "2023-05-15T12:00:00Z"
