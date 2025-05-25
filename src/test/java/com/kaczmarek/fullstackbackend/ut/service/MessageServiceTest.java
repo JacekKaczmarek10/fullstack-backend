@@ -1,16 +1,17 @@
-package com.kaczmarek.fullstackbackend.service;
+package com.kaczmarek.fullstackbackend.ut.service;
 
 import com.kaczmarek.fullstack.generated.model.MessageDto;
 import com.kaczmarek.fullstackbackend.mapper.MessageMapper;
 import com.kaczmarek.fullstackbackend.model.Message;
 import com.kaczmarek.fullstackbackend.repository.MessageRepository;
+import com.kaczmarek.fullstackbackend.service.MessageService;
 import org.apache.commons.text.StringEscapeUtils;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class MessageServiceTest {
 
     @Mock
@@ -33,11 +35,6 @@ class MessageServiceTest {
 
     @InjectMocks
     private MessageService service;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Nested
     class SaveTest {

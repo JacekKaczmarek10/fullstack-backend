@@ -1,6 +1,5 @@
 package com.kaczmarek.fullstackbackend;
 
-
 import com.kaczmarek.fullstack.generated.model.MessageDto;
 import com.kaczmarek.fullstack.generated.model.NewMessageDto;
 import com.kaczmarek.fullstackbackend.model.Message;

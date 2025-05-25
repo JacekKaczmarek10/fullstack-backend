@@ -1,4 +1,4 @@
-package com.kaczmarek.fullstackbackend.integrationTests;
+package com.kaczmarek.fullstackbackend.integration;
 
 import com.kaczmarek.fullstack.generated.model.MessageDto;
 import com.kaczmarek.fullstack.generated.model.NewMessageDto;
@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 @SpringBootTest(classes = FullstackBackendApplication.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MessageControllerIntegrationTest {
+class MessageControllerTest {
 
     @LocalServerPort
     private int port;

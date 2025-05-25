@@ -1,13 +1,14 @@
-package com.kaczmarek.fullstackbackend.controller;
+package com.kaczmarek.fullstackbackend.ut.controller;
 
 import com.kaczmarek.fullstack.generated.model.MessageDto;
+import com.kaczmarek.fullstackbackend.controller.MessageController;
 import com.kaczmarek.fullstackbackend.service.MessageService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class MessageControllerTest {
 
     @Mock
@@ -25,11 +27,6 @@ class MessageControllerTest {
 
     @InjectMocks
     private MessageController controller;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Nested
     class GetMessagesTest {
