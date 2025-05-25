@@ -36,7 +36,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven and run tests
-        run: mvn clean verify
+        run: mvn clean verify -Dspring-boot.run.profiles=dev
 
       - name: Upload JaCoCo Report
         uses: actions/upload-artifact@v4
