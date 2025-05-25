@@ -127,6 +127,11 @@
       <artifactId>postgresql</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
   <dependencyManagement>
     <dependencies>
@@ -136,6 +141,10 @@
         <version>1.19.0</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-cache</artifactId>
       </dependency>
     </dependencies>
   </dependencyManagement>

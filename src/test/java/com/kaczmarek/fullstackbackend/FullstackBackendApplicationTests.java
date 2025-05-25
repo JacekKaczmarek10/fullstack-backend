@@ -9,5 +9,4 @@ class FullstackBackendApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

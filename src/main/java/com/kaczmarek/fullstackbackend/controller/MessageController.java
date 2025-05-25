@@ -25,5 +25,4 @@ public class MessageController implements V1Api {
     public ResponseEntity<MessageDto> addMessage(NewMessageDto newMessageDto) {
         return ResponseEntity.ok(service.save(newMessageDto));
     }
-
 }
