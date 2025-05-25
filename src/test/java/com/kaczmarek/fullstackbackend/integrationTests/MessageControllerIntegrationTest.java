@@ -43,7 +43,7 @@ class MessageControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        baseUrl = "http://localhost:" + port + "/api/v1";
+        baseUrl = "http://localhost:" + port + "/v1/api/messages";
     }
 
     @Nested
@@ -52,7 +52,7 @@ class MessageControllerIntegrationTest {
         @Test
         void shouldReturnEmptyListWhenNoMessages() {
             final var response = restTemplate.exchange(
-                baseUrl + "/messages",
+                baseUrl,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Map<String, Object>>>() {});
@@ -80,7 +80,7 @@ class MessageControllerIntegrationTest {
             final var request = new HttpEntity<>(newMessageDto, headers);
 
             final var response = restTemplate.postForEntity(
-                baseUrl + "/messages",
+                baseUrl,
                 request,
                 MessageDto.class
             );
