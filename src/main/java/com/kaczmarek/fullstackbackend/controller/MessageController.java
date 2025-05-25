@@ -6,14 +6,12 @@ import com.kaczmarek.fullstack.generated.model.NewMessageDto;
 import com.kaczmarek.fullstackbackend.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class MessageController implements V1Api {
 
     private final MessageService service;
