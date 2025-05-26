@@ -10,4 +10,5 @@ public interface MessageMapper {
 
     MessageDto toDto(Message entity);
     Message toEntity(NewMessageDto dto);
+
 }
