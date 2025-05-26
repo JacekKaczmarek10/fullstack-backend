@@ -95,7 +95,7 @@ components:
           description: The text content of the message
           example: "Hello world!"
           minLength: 1
-          maxLength: 1000
+          maxLength: 255
       required:
         - id
         - content
@@ -108,7 +108,7 @@ components:
           description: The text content of the message
           example: "New message content"
           minLength: 1
-          maxLength: 1000
+          maxLength: 255
       required:
         - content
 

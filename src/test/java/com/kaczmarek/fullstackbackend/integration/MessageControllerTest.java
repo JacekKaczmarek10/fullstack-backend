@@ -1,4 +1,4 @@
-package com.kaczmarek.fullstackbackend.integrationTests;
+package com.kaczmarek.fullstackbackend.integration;
 
 import com.kaczmarek.fullstack.generated.model.MessageDto;
 import com.kaczmarek.fullstack.generated.model.NewMessageDto;
