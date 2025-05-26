@@ -21,6 +21,12 @@ To build and run the application, you need:
 mvn spring-boot:run -Dspring-boot.run.profiles=dev 
 ```
 
+## ▶️ Build project
+
+```bash
+mvn clean install -P dev
+```
+
 Once started, access:
 
 - Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
