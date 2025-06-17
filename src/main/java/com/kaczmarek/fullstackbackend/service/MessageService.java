@@ -26,10 +26,9 @@ public class MessageService {
     @CacheEvict(value = "messages", allEntries = true)
     public MessageDto save(NewMessageDto newMessageDto) {
         var sanitizedContent = escapeHtml4(newMessageDto.getContent());
-        var safeDto = new NewMessageDto();
-        safeDto.setContent(sanitizedContent);
+        newMessageDto.setContent(sanitizedContent);
         log.debug("Saving message with sanitized content: {}", sanitizedContent);
-        return repository.save(safeDto);
+        return repository.save(newMessageDto);
     }
 
     @Cacheable(value = "messages")

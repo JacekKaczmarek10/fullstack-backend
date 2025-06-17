@@ -1,17 +1,15 @@
-package com.kaczmarek.fullstackbackend.service;
+package com.kaczmarek.fullstackbackend.ut.service;
 
 import com.kaczmarek.fullstack.generated.model.MessageDto;
 import com.kaczmarek.fullstack.generated.model.NewMessageDto;
 import com.kaczmarek.fullstackbackend.repository.MessageRepository;
 import com.kaczmarek.fullstackbackend.service.MessageService;
 import org.apache.commons.text.StringEscapeUtils;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -43,7 +41,6 @@ class MessageServiceTest {
             final var savedDto = createMessageDto(1L, escapedContent);
 
             when(repository.save(any(NewMessageDto.class))).thenReturn(savedDto);
-
             final var result = service.save(newMessageDto);
 
             verify(repository).save(argThat(dto -> escapedContent.equals(dto.getContent())));
@@ -58,7 +55,6 @@ class MessageServiceTest {
             final var savedDto = createMessageDto(2L, escapedContent);
 
             when(repository.save(any(NewMessageDto.class))).thenReturn(savedDto);
-
             final var result = service.save(newMessageDto);
 
             verify(repository).save(argThat(dto -> escapedContent.equals(dto.getContent())));
@@ -81,11 +77,11 @@ class MessageServiceTest {
         @Test
         void shouldReturnListOfMessageDtos() {
             final var dtos = List.of(
-                    createMessageDto(1L, "Hello"),
-                    createMessageDto(2L, "World")
+                createMessageDto(1L, "Hello"),
+                createMessageDto(2L, "World")
             );
-            when(repository.findAll()).thenReturn(dtos);
 
+            when(repository.findAll()).thenReturn(dtos);
             final var result = service.getAll();
 
             assertThat(result).hasSize(2);
