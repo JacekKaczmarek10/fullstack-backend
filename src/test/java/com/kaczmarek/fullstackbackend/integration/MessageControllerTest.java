@@ -31,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 class MessageControllerIntegrationTest {
 
+    @SuppressWarnings("resource")
     @Container
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
             .withDatabaseName("testdb")
@@ -80,6 +81,25 @@ class MessageControllerIntegrationTest {
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
             assertThat(response.getBody()).isNotNull().isEmpty();
         }
+
+        @Test
+        void shouldReturnListWithAtLeastOneMessage() {
+            var newMessageDto = new NewMessageDto();
+            newMessageDto.setContent("Test message");
+            var headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            var request = new HttpEntity<>(newMessageDto, headers);
+            restTemplate.postForEntity(baseUrl, request, MessageDto.class);
+
+            var response = restTemplate.exchange(
+                baseUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Map<String, Object>>>() {});
+
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(response.getBody()).isNotNull().hasSizeGreaterThanOrEqualTo(1);
+        }
     }
 
     @Nested
@@ -89,10 +109,8 @@ class MessageControllerIntegrationTest {
         void shouldAddMessageAndReturnDto() {
             var newMessageDto = new NewMessageDto();
             newMessageDto.setContent("<b>Integration Test</b>");
-
             var headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-
             var request = new HttpEntity<>(newMessageDto, headers);
 
             var response = restTemplate.postForEntity(baseUrl, request, MessageDto.class);
@@ -102,6 +120,34 @@ class MessageControllerIntegrationTest {
             assertThat(body).isNotNull();
             assertThat(body.getContent()).contains("&lt;b&gt;Integration Test&lt;/b&gt;");
             assertThat(body.getId()).isNotNull();
+        }
+
+        @Test
+        void shouldReturnBadRequestWhenMessageTooLong() {
+            var newMessageDto = new NewMessageDto();
+            newMessageDto.setContent("a".repeat(256));
+            var headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            var request = new HttpEntity<>(newMessageDto, headers);
+
+            var response = restTemplate.postForEntity(baseUrl, request, String.class);
+
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+            assertThat(response.getBody()).contains("{\"content\":\"size must be between 1 and 255\"}");
+        }
+
+        @Test
+        void shouldReturnBadRequestWhenMessageIsEmpty() {
+            var newMessageDto = new NewMessageDto();
+            newMessageDto.setContent("");
+            var headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            var request = new HttpEntity<>(newMessageDto, headers);
+
+            var response = restTemplate.postForEntity(baseUrl, request, String.class);
+
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+            assertThat(response.getBody()).contains("{\"content\":\"size must be between 1 and 255\"}");
         }
     }
 }
